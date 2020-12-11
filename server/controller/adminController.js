@@ -1,5 +1,5 @@
 import adminModel from "../models/adminModel";
-import { Functions } from "../functions/index";
+import { Functions } from "../utils/";
 const methods = new Functions();
 class Admin {
   async registrarAdmin(req, res) {

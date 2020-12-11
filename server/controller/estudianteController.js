@@ -1,5 +1,5 @@
 import estudianteModel from "../models/estudianteModel";
-import { Functions } from "../functions/index";
+import { Functions } from "../utils/";
 const methods = new Functions();
 class Estudiante {
   async agregarEstudiante(req, res) {

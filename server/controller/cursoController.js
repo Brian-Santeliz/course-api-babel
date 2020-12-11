@@ -1,5 +1,5 @@
 import cursoModel from "../models/cursoModel";
-import { Functions } from "../functions/index";
+import { Functions } from "../utils/";
 const methods = new Functions();
 class Curso {
   async agregarCurso(req, res) {
@@ -16,8 +16,8 @@ class Curso {
     try {
       const response = await methods.encontrarCurso(descripcion);
       if (response.length > 0) {
-        res
-          .tatus(500)
+        return res
+          .status(500)
           .json(
             `El curso con despcrion ${descripcion} se encuentra registrado`
           );

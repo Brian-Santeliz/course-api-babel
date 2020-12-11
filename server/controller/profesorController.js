@@ -1,5 +1,5 @@
 import profesorModel from "../models/profesorModel";
-import { Functions } from "../functions/index";
+import { Functions } from "../utils/";
 const methods = new Functions();
 class Profesor {
   async agregarProfesor(req, res) {
