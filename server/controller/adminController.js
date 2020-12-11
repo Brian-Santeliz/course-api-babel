@@ -56,6 +56,9 @@ class Admin {
   async listarAdmin(req, res) {
     try {
       const resultado = await adminModel.find();
+      if (resultado.length === 0) {
+        return res.status(200).json("No hay administradores registrados");
+      }
       res.status(200).json(resultado);
     } catch (error) {
       res.status(500).json(error);
