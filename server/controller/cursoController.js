@@ -28,8 +28,9 @@ class Curso {
         definitivas,
         profesor,
       });
-      curso.profesor = await methods.buscarProfesoresCurso(profesor);
       const estudianteId = await methods.buscarEstudiantesCurso(estudiantes);
+      curso.profesor = await methods.buscarProfesoresCurso(profesor);
+      curso.modificado = await methods.buscarAdminModificado(req.adminPayload);
       curso.estudiantes = estudianteId;
       curso.definitivas = methods.definitivasEstudiante(
         definitivas,
@@ -128,6 +129,13 @@ class Curso {
       }
       res.status(200).json({ mensaje: "Curso Actualizado", actualizado });
     } catch (error) {
+      if (error.codeName === "DuplicateKey") {
+        return res
+          .status(500)
+          .json(
+            `Este intentando actualizar la descripcion ${descripcion}, que ya existe`
+          );
+      }
       res.status(500).json(error);
     }
   }

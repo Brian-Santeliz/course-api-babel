@@ -92,4 +92,12 @@ export class Functions {
         : definitiva
     );
   }
+  async buscarAdminModificado(_id) {
+    try {
+      const { usuario } = await adminModel.findById(_id);
+      return usuario;
+    } catch (error) {
+      throw new Error("Error Buscando el admin que modifica los cursos", error);
+    }
+  }
 }

@@ -45,8 +45,10 @@ class Admin {
       if (!response) {
         return res.status(401).json("La password no coinciden");
       }
-      const token = methods.loginCorrecto(idPayload);
-      res.status(200).json({ Admin: "Has iniciado sesión Admin", token });
+      const llave = methods.loginCorrecto(idPayload);
+      res
+        .status(200)
+        .json({ Admin: `Has iniciado sesión Admin ${usuario}`, llave });
     } catch (error) {
       res.status(500).json(error);
     }

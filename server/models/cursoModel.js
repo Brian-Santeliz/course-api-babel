@@ -45,6 +45,9 @@ const curso = new Schema({
       ref: "Estudiante",
     },
   ],
+  modificado: {
+    type: String,
+  },
 });
 
 export default model("Curso", curso);
