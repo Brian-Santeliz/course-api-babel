@@ -12,7 +12,6 @@ export class Middleware {
       req.adminPayload = decode.payload;
       next();
     } catch (error) {
-      console.log(error);
       switch (error.message) {
         case "jwt malformed":
           return res.status(401).json("Este no es una llave valida.");

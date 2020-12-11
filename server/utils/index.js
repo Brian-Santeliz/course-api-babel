@@ -32,9 +32,13 @@ export class Functions {
 
   loginCorrecto(payload) {
     const secret = process.env.JWT_SECRET;
-    return jwt.sign({ payload }, secret, {
-      expiresIn: 60 * 60 * 24,
-    });
+    try {
+      return jwt.sign({ payload }, secret, {
+        expiresIn: 60 * 60 * 24,
+      });
+    } catch (error) {
+      throw new Error("Error creando el token", error);
+    }
   }
   async encontrarProfesor(cedula) {
     try {
@@ -54,7 +58,6 @@ export class Functions {
     try {
       return await cursoModel.find({ descripcion });
     } catch (error) {
-      console.log(error);
       throw new Error("Error Encontrando el curso", error);
     }
   }
