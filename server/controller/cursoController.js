@@ -102,9 +102,10 @@ class Curso {
       return res.status(400).json("Todos los datos son necesarios");
     }
     try {
-      const [profesorCurso, estudianteId] = await Promise.all([
+      const [profesorCurso, estudianteId, adminModificado] = await Promise.all([
         methods.buscarProfesoresCurso(profesor),
         methods.buscarEstudiantesCurso(estudiantes),
+        methods.buscarAdminModificado(req.adminPayload),
       ]);
       const defintivasId = methods.definitivasEstudiante(
         definitivas,
@@ -119,6 +120,7 @@ class Curso {
           estudiantes: estudianteId,
           definitivas: defintivasId,
           profesor: profesorCurso,
+          modificado: adminModificado,
         },
         {
           new: true,
@@ -133,7 +135,7 @@ class Curso {
         return res
           .status(500)
           .json(
-            `Este intentando actualizar la descripcion ${descripcion}, que ya existe`
+            `Este intentando actualizar la descripción: ${descripcion}, con una descripción que ya existe.`
           );
       }
       res.status(500).json(error);
