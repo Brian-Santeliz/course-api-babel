@@ -3,7 +3,9 @@ export class Middleware {
   token(req, res, next) {
     const llave = req.header("x-access-key");
     if (!llave) {
-      return res.status(401).json("Necesita una llave de acceso para ingresar");
+      return res
+        .status(401)
+        .json("Necesita una llave de accesso administrador para ingresar");
     }
     try {
       const decode = jwt.verify(llave, process.env.JWT_SECRET);

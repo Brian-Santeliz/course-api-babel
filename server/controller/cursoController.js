@@ -28,10 +28,14 @@ class Curso {
         definitivas,
         profesor,
       });
-      const estudianteId = await methods.buscarEstudiantesCurso(estudiantes);
-      curso.profesor = await methods.buscarProfesoresCurso(profesor);
-      curso.modificado = await methods.buscarAdminModificado(req.adminPayload);
+      const [estudianteId, profesorId, adminModificado] = await Promise.all([
+        methods.buscarEstudiantesCurso(estudiantes),
+        methods.buscarProfesoresCurso(profesor),
+        methods.buscarAdminModificado(req.adminPayload),
+      ]);
       curso.estudiantes = estudianteId;
+      curso.profesor = profesorId;
+      curso.modificado = adminModificado;
       curso.definitivas = methods.definitivasEstudiante(
         definitivas,
         estudiantes,
@@ -40,7 +44,7 @@ class Curso {
       await curso.save();
       res.status(201).json({ mensaje: "Curso creado correctamente", curso });
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json(error.message);
     }
   }
   async listarCurso(req, res) {

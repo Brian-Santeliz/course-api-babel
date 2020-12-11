@@ -1,7 +1,8 @@
 import { Router } from "express";
-const router = Router();
 import Curso from "../controller/cursoController";
+const router = Router();
 const ctrl = new Curso();
+
 router.post("/", ctrl.agregarCurso);
 router.get("/", ctrl.listarCurso);
 router.get("/:_id", ctrl.listatUnicoCurso);
