@@ -1,5 +1,5 @@
 import cursoModel from "../models/cursoModel";
-import { Functions } from "../utils/";
+import { Functions } from "../utils/index";
 const methods = new Functions();
 class Curso {
   async agregarCurso(req, res) {
@@ -19,7 +19,7 @@ class Curso {
         return res
           .status(500)
           .json(
-            `El curso con despcrion ${descripcion} se encuentra registrado`
+            `El curso con descripción ${descripcion} se encuentra registrado`
           );
       }
       const curso = new cursoModel({
@@ -86,6 +86,51 @@ class Curso {
       }
       res.status(200).json("Curso eliminado de la base de datos");
     } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+  async actualizarCurso(req, res) {
+    const { _id } = req.params;
+    const {
+      descripcion,
+      fechas,
+      estudiantes,
+      definitivas,
+      profesor,
+    } = req.body;
+    if (!descripcion || !fechas || !estudiantes || !definitivas || !profesor) {
+      return res.status(400).json("Todos los datos son necesarios");
+    }
+    try {
+      const [profesorCurso, estudianteId] = await Promise.all([
+        methods.buscarProfesoresCurso(profesor),
+        methods.buscarEstudiantesCurso(estudiantes),
+      ]);
+      const defintivasId = methods.definitivasEstudiante(
+        definitivas,
+        estudiantes,
+        estudianteId
+      );
+      console.log(defintivasId);
+      const actualizado = await cursoModel.findByIdAndUpdate(
+        { _id },
+        {
+          descripcion,
+          fechas,
+          estudiantes: estudianteId,
+          definitivas: defintivasId,
+          profesor: profesorCurso,
+        },
+        {
+          new: true,
+        }
+      );
+      if (!actualizado) {
+        return res.status(400).json("No se pudo actualizar, verifica el ID");
+      }
+      res.status(200).json({ mensaje: "Curso Actualizado", actualizado });
+    } catch (error) {
+      console.log(error);
       res.status(500).json(error);
     }
   }

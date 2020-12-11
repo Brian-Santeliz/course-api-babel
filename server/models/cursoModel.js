@@ -14,14 +14,14 @@ const curso = new Schema({
   fechas: [
     {
       empieza: {
+        trim: true,
         required: true,
         type: String,
-        trim: true,
       },
       termina: {
+        trim: true,
         required: true,
         type: String,
-        trim: true,
       },
     },
   ],

@@ -9,6 +9,7 @@ const URI = process.env.MONGO_URI || "";
       useFindAndModify: true,
       useUnifiedTopology: true,
       useNewUrlParser: true,
+      useFindAndModify: false,
     })
     .then(() => console.log("Conexión establecida con la BD"))
     .catch((e) => {
