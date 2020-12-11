@@ -6,6 +6,6 @@ router.post("/", ctrl.agregarCurso);
 router.get("/", ctrl.listarCurso);
 router.get("/:_id", ctrl.listatUnicoCurso);
 router.delete("/:_id", ctrl.eliminarCurso);
-// router.put("/:_id", ctrl.actualizarEstudiante);
+router.put("/:_id", ctrl.actualizarEstudiante);
 
 export default router;

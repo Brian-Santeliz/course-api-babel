@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import adminModel from "../models/adminModel";
 import profesorModel from "../models/profesorModel";
 import estudianteModel from "../models/estudianteModel";
+import cursoModel from "../models/cursoModel";
 import jwt from "jsonwebtoken";
 
 export class Functions {
@@ -53,6 +54,7 @@ export class Functions {
     try {
       return await cursoModel.find({ descripcion });
     } catch (error) {
+      console.log(error);
       throw new Error("Error Encontrando el curso", error);
     }
   }
