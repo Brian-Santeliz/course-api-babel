@@ -39,7 +39,6 @@ class Curso {
       await curso.save();
       res.status(201).json({ mensaje: "Curso creado correctamente", curso });
     } catch (error) {
-      console.log(error);
       res.status(500).json(error);
     }
   }
@@ -111,7 +110,6 @@ class Curso {
         estudiantes,
         estudianteId
       );
-      console.log(defintivasId);
       const actualizado = await cursoModel.findByIdAndUpdate(
         { _id },
         {
@@ -130,7 +128,6 @@ class Curso {
       }
       res.status(200).json({ mensaje: "Curso Actualizado", actualizado });
     } catch (error) {
-      console.log(error);
       res.status(500).json(error);
     }
   }
