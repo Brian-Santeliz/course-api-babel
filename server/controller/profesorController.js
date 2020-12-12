@@ -88,6 +88,13 @@ class Profesor {
       }
       res.status(200).json("Profesor Actualizado");
     } catch (error) {
+      if (error.codeName === "DuplicateKey") {
+        return res
+          .status(500)
+          .json(
+            `Este intentando actualizar el profesor con cedula: ${cedula}, que ya existe.`
+          );
+      }
       res.status(500).json(error);
     }
   }

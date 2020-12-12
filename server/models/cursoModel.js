@@ -10,6 +10,7 @@ const curso = new Schema({
   profesor: {
     type: Schema.Types.ObjectId,
     ref: "Profesor",
+    trim: true,
   },
   fechas: [
     {

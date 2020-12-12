@@ -87,6 +87,13 @@ class Estudiante {
       }
       res.status(200).json("Estudiante Actualizado");
     } catch (error) {
+      if (error.codeName === "DuplicateKey") {
+        return res
+          .status(500)
+          .json(
+            `Este intentando actualizar el estudiante con cedula: ${cedula}, que ya existe.`
+          );
+      }
       res.status(500).json(error);
     }
   }
